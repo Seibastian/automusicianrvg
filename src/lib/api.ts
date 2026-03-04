@@ -16,7 +16,7 @@ export async function fetchPlaylistTracks(playlistUrl: string): Promise<Track[]>
     album: t.album,
     albumArt: t.albumArt,
     duration: t.duration,
-    status: "waiting" as const,
+    status: "pending" as const,
   }));
 }
 

@@ -65,6 +65,20 @@ serve(async (req) => {
     );
 
     if (!playlistRes.ok) {
+      const errorText = await playlistRes.text();
+      console.error("Spotify API error:", playlistRes.status, errorText);
+      if (playlistRes.status === 401) {
+        return new Response(JSON.stringify({ error: "Spotify token süresi dolmuş, lütfen tekrar dene" }), {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (playlistRes.status === 429) {
+        return new Response(JSON.stringify({ error: "Spotify rate limit aşıldı, biraz bekle" }), {
+          status: 429,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
       return new Response(JSON.stringify({ error: "Playlist bulunamadı veya erişilemiyor" }), {
         status: 404,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
