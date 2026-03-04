@@ -1,0 +1,10 @@
+project_id = "oizmsvtwywpvabxblcya"
+
+[functions.spotify-playlist]
+verify_jwt = false
+
+[functions.youtube-search]
+verify_jwt = false
+
+[functions.youtube-to-mp3]
+verify_jwt = false
