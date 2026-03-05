@@ -40,13 +40,13 @@ const Index = () => {
     setProcessing(true);
     for (let i = 0; i < tracks.length; i++) {
       const track = tracks[i];
-      if (track.status !== "pending") continue;
+      if (track.status !== "pending" && track.status !== "error") continue;
       
       setTracks((prev) =>
         prev.map((t) => (t.id === track.id ? { ...t, status: "searching" as const } : t))
       );
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         const videoId = await searchYouTube(track.name, track.artist);
         if (!videoId) throw new Error("Video bulunamadı");
 
@@ -150,7 +150,7 @@ const Index = () => {
                 <div className="flex gap-2">
                   <Button
                     onClick={handleProcessAll}
-                    disabled={processing || tracks.every(t => t.status !== "pending")}
+                    disabled={processing || (tracks.every(t => t.status !== "pending" && t.status !== "error"))}
                     className="neon-glow font-display text-xs tracking-wide"
                     size="sm"
                   >

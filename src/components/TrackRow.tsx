@@ -9,6 +9,7 @@ interface TrackRowProps {
 }
 
 const statusConfig = {
+  pending: { icon: null, label: "Bekliyor", className: "text-muted-foreground" },
   waiting: { icon: null, label: "Bekliyor", className: "text-muted-foreground" },
   searching: { icon: Search, label: "Aranıyor...", className: "text-neon-cyan animate-pulse-neon" },
   ready: { icon: Download, label: "Hazır", className: "text-primary" },
